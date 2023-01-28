@@ -10,6 +10,7 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -88,92 +89,92 @@
 
             </LinearLayout>
 
-<!--            <RelativeLayout-->
-<!--                android:id="@+id/top_container"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="79dp"-->
-<!--                android:layout_marginStart="-7dp"-->
-<!--                android:layout_marginTop="1dp"-->
-<!--                android:layout_marginEnd="7dp"-->
-<!--                android:layout_weight="1">-->
+            <!--            <RelativeLayout-->
+            <!--                android:id="@+id/top_container"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="79dp"-->
+            <!--                android:layout_marginStart="-7dp"-->
+            <!--                android:layout_marginTop="1dp"-->
+            <!--                android:layout_marginEnd="7dp"-->
+            <!--                android:layout_weight="1">-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/text_view_Date"-->
-<!--                    android:layout_width="108dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_alignParentBottom="true"-->
-<!--                    android:layout_marginStart="21dp"-->
-<!--                    android:layout_marginTop="12dp"-->
-<!--                    android:layout_marginEnd="220dp"-->
-<!--                    android:layout_marginBottom="33dp"-->
-<!--                    android:layout_toEndOf="@+id/textView4"-->
-<!--                    android:hint="@string/select"-->
-<!--                    android:textColorHint="#B1A1A1"-->
-<!--                    android:textSize="18sp" />-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/text_view_Date"-->
+            <!--                    android:layout_width="108dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_alignParentEnd="true"-->
+            <!--                    android:layout_alignParentBottom="true"-->
+            <!--                    android:layout_marginStart="21dp"-->
+            <!--                    android:layout_marginTop="12dp"-->
+            <!--                    android:layout_marginEnd="220dp"-->
+            <!--                    android:layout_marginBottom="33dp"-->
+            <!--                    android:layout_toEndOf="@+id/textView4"-->
+            <!--                    android:hint="@string/select"-->
+            <!--                    android:textColorHint="#B1A1A1"-->
+            <!--                    android:textSize="18sp" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/textView4"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:layout_alignParentBottom="true"-->
-<!--                    android:layout_marginStart="25dp"-->
-<!--                    android:layout_marginBottom="33dp"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="@string/date"-->
-<!--                    android:textColor="#000000"-->
-<!--                    android:textColorHint="#000000"-->
-<!--                    android:textSize="18sp" />-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/textView4"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_alignParentStart="true"-->
+            <!--                    android:layout_alignParentBottom="true"-->
+            <!--                    android:layout_marginStart="25dp"-->
+            <!--                    android:layout_marginBottom="33dp"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:text="@string/date"-->
+            <!--                    android:textColor="#000000"-->
+            <!--                    android:textColorHint="#000000"-->
+            <!--                    android:textSize="18sp" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/textView5"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:layout_alignParentBottom="true"-->
-<!--                    android:layout_marginStart="204dp"-->
-<!--                    android:layout_marginBottom="33dp"-->
-<!--                    android:text="@string/time"-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/textView5"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_alignParentStart="true"-->
+            <!--                    android:layout_alignParentBottom="true"-->
+            <!--                    android:layout_marginStart="204dp"-->
+            <!--                    android:layout_marginBottom="33dp"-->
+            <!--                    android:text="@string/time"-->
 
-<!--                    android:textColor="#000000"-->
-<!--                    android:textColorHint="#000000"-->
-<!--                    android:textSize="18sp" />-->
+            <!--                    android:textColor="#000000"-->
+            <!--                    android:textColorHint="#000000"-->
+            <!--                    android:textSize="18sp" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/text_view_Time"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:layout_alignParentBottom="true"-->
-<!--                    android:layout_marginStart="261dp"-->
-<!--                    android:layout_marginBottom="33dp"-->
-<!--                    android:hint="@string/select"-->
-<!--                    android:textColorHint="#B1A1A1"-->
-<!--                    android:textSize="18sp" />-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/text_view_Time"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_alignParentStart="true"-->
+            <!--                    android:layout_alignParentBottom="true"-->
+            <!--                    android:layout_marginStart="261dp"-->
+            <!--                    android:layout_marginBottom="33dp"-->
+            <!--                    android:hint="@string/select"-->
+            <!--                    android:textColorHint="#B1A1A1"-->
+            <!--                    android:textSize="18sp" />-->
 
-<!--                <View-->
-<!--                    android:id="@+id/view"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="5dp"-->
-<!--                    android:layout_marginTop="60dp"-->
-<!--                    android:background="#ff2d57" />-->
+            <!--                <View-->
+            <!--                    android:id="@+id/view"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="5dp"-->
+            <!--                    android:layout_marginTop="60dp"-->
+            <!--                    android:background="#ff2d57" />-->
 
-<!--                <Button-->
-<!--                    android:id="@+id/btnSaveDateAndTime"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_alignParentTop="true"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:layout_marginStart="10dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:layout_marginEnd="10dp"-->
-<!--                    android:layout_toEndOf="@+id/text_view_Time"-->
-<!--                    android:text="@string/txt_save_date_time"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    android:visibility="invisible" />-->
+            <!--                <Button-->
+            <!--                    android:id="@+id/btnSaveDateAndTime"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_alignParentTop="true"-->
+            <!--                    android:layout_alignParentEnd="true"-->
+            <!--                    android:layout_marginStart="10dp"-->
+            <!--                    android:layout_marginTop="8dp"-->
+            <!--                    android:layout_marginEnd="10dp"-->
+            <!--                    android:layout_toEndOf="@+id/text_view_Time"-->
+            <!--                    android:text="@string/txt_save_date_time"-->
+            <!--                    android:textAllCaps="false"-->
+            <!--                    android:visibility="invisible" />-->
 
-<!--            </RelativeLayout>-->
+            <!--            </RelativeLayout>-->
 
             <ImageView
                 android:id="@+id/imageView"
@@ -240,73 +241,73 @@
         </LinearLayout>
 
         <!--        <RelativeLayout-->
-<!--            android:id="@+id/second_container"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="46dp"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_marginStart="0dp"-->
-<!--            android:layout_marginTop="80dp"-->
-<!--            android:layout_weight="1">-->
+        <!--            android:id="@+id/second_container"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="46dp"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_marginStart="0dp"-->
+        <!--            android:layout_marginTop="80dp"-->
+        <!--            android:layout_weight="1">-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView2"-->
-<!--                android:layout_width="127dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentStart="true"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:layout_marginStart="5dp"-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                android:layout_marginBottom="18dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@string/product_name"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="18sp" />-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/textView2"-->
+        <!--                android:layout_width="127dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_alignParentStart="true"-->
+        <!--                android:layout_alignParentTop="true"-->
+        <!--                android:layout_alignParentBottom="true"-->
+        <!--                android:layout_marginStart="5dp"-->
+        <!--                android:layout_marginTop="4dp"-->
+        <!--                android:layout_marginBottom="18dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="@string/product_name"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textSize="18sp" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView10"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentStart="true"-->
-<!--                android:layout_alignParentEnd="true"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:layout_marginStart="318dp"-->
-<!--                android:layout_marginEnd="27dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@string/remove"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="18sp" />-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/textView10"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_alignParentStart="true"-->
+        <!--                android:layout_alignParentEnd="true"-->
+        <!--                android:layout_alignParentBottom="true"-->
+        <!--                android:layout_marginStart="318dp"-->
+        <!--                android:layout_marginEnd="27dp"-->
+        <!--                android:layout_marginBottom="20dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="@string/remove"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textSize="18sp" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView9"-->
-<!--                android:layout_width="49dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentStart="true"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:layout_marginStart="252dp"-->
-<!--                android:layout_marginTop="2dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@string/edit"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="18sp" />-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/textView9"-->
+        <!--                android:layout_width="49dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_alignParentStart="true"-->
+        <!--                android:layout_alignParentTop="true"-->
+        <!--                android:layout_alignParentBottom="true"-->
+        <!--                android:layout_marginStart="252dp"-->
+        <!--                android:layout_marginTop="2dp"-->
+        <!--                android:layout_marginBottom="20dp"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="@string/edit"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textSize="18sp" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/textView8"-->
-<!--                android:layout_width="87dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                android:layout_marginStart="38dp"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:layout_toEndOf="@+id/textView2"-->
-<!--                android:layout_weight="1"-->
-<!--                android:text="@string/quantity"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="18sp" />-->
+        <!--            <TextView-->
+        <!--                android:id="@+id/textView8"-->
+        <!--                android:layout_width="87dp"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_alignParentBottom="true"-->
+        <!--                android:layout_marginStart="38dp"-->
+        <!--                android:layout_marginBottom="20dp"-->
+        <!--                android:layout_toEndOf="@+id/textView2"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:text="@string/quantity"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textSize="18sp" />-->
 
-<!--        </RelativeLayout>-->
+        <!--        </RelativeLayout>-->
 
         <!--        <Button-->
         <!--            android:id="@+id/btnAddNewButton"-->
