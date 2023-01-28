@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/item_in_shoppingList"
         android:layout_width="412dp"
         android:layout_height="72dp"
         android:layout_marginTop="3dp"
@@ -16,14 +17,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView_itemName_inList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Name" />
 
         <TextView
-            android:id="@+id/textView_itemQuantity"
+            android:id="@+id/textView_itemQuantity_inList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,8 +37,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="@string/edit"
-            android:background="@drawable/btn" />
+            android:background="@drawable/btn"
+            android:text="@string/edit" />
 
         <Button
             android:id="@+id/button_deleteItem"
@@ -46,7 +47,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="@string/delete"
-            android:background="@drawable/btn" />
+            android:background="@drawable/btn"
+            android:text="@string/delete" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
