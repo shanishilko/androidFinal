@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int getColorFromRaw() {
         FileInputStream fis = null;
-        int color = Color.RED;
+        int color = Color.WHITE;
         try {
             fis = getApplication().openFileInput(FILE_NAME);
             InputStreamReader isr = new InputStreamReader(fis);
