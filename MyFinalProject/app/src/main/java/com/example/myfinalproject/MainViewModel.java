@@ -29,7 +29,9 @@ public class MainViewModel extends AndroidViewModel {
         return instance;
     }
 
-    public MutableLiveData<ArrayList<ShoppingItem>>  getItemsLiveData() {
+
+
+    public MutableLiveData<ArrayList<ShoppingItem>> getItemsLiveData() {
         return itemsLiveData;
     }
 

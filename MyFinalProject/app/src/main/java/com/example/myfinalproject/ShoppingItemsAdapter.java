@@ -16,8 +16,11 @@ import java.util.ArrayList;
 public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdapter.ItemsViewHolder> {
 
     private static ArrayList<ShoppingItem> itemsList;
+    private MainViewModel mainViewModel;
 
     public ShoppingItemsAdapter(Application application, Context context, FragmentActivity activity, ShoppingListFrag shoppingListFrag) {
+        mainViewModel = MainViewModel.getInstance(application, activity);
+        itemsList = mainViewModel.getItemsLiveData().getValue();
     }
 
     @NonNull
@@ -32,7 +35,8 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
 
     @Override
     public int getItemCount() {
-        return itemsList.size();
+//        return itemsList.size();
+        return 0;
     }
 
     // every row in our RecyclerView will get a reference of this ItemsViewHolder
