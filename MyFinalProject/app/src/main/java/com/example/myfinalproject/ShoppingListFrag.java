@@ -20,6 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class ShoppingListFrag extends Fragment {
     private RecyclerView recyclerView;
     private ShoppingItemsAdapter itemsAdapter;
@@ -30,6 +36,7 @@ public class ShoppingListFrag extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.shopping_list_fragment, container, false);
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -104,4 +111,5 @@ public class ShoppingListFrag extends Fragment {
         });
 
     }
+
 }

@@ -1,11 +1,22 @@
 package com.example.myfinalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.SharedPreferences;
+
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,13 +28,78 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+
+public class MainActivity extends AppCompatActivity {
+    private static final int RECEIVE_SMS_REQUEST_CODE   = 1;
+    private static final int READ_SMS_REQUEST_CODE      = 2;
+    private static final String FILE_NAME = "rawColor.txt";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        askForSmsDangerousPermissions();
+
     }
+
+
+
+    private void askForSmsDangerousPermissions() {
+        requestSmsDangerousPermission(android.Manifest.permission.READ_SMS, READ_SMS_REQUEST_CODE);
+        requestSmsDangerousPermission(Manifest.permission.RECEIVE_SMS, RECEIVE_SMS_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // This is where you would put your code that needs to be executed
+        // after the activity has been fully initialized
+        int color = getColorFromRaw();
+        View frag = findViewById(R.id.relativeLayout);
+        frag.setBackgroundColor(color);
+    }
+
+
+    private void requestSmsDangerousPermission(String permission, int permissionRequestCode)
+    {
+        // check if permission already granted
+        if (ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        // Permission is not granted. show an explanation.
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission))
+            Toast.makeText(this, "You must grant this permission in order to see SMS messages", Toast.LENGTH_LONG).show();
+
+        // request the permission
+        ActivityCompat.requestPermissions(this, new String[] { permission }, permissionRequestCode);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length == 0)
+            return;
+
+        boolean firstPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+        switch (requestCode) {
+            case RECEIVE_SMS_REQUEST_CODE:
+                Toast.makeText(this, "RECEIVE_SMS permission granted: " + firstPermissionGranted, Toast.LENGTH_LONG).show();
+                break;
+            case READ_SMS_REQUEST_CODE:
+                Toast.makeText(this, "READ_SMS permission granted: " + firstPermissionGranted, Toast.LENGTH_LONG).show();
+                break;
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,18 +114,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-//                FragmentManager fm = getSupportFragmentManager();
-//                Fragment toHide = fm.findFragmentById(R.id.main_container);
-//                FragmentTransaction ft = fm.beginTransaction();
-//                if (toHide != null) {
-//                    ft.hide(toHide);    // hide main fragment.
-//                }
-//
-//                // This is the parent activity
-//                // Pay attention on note that the SettingFragment has
-//                ft.add(R.id.mainActivityLayoutID, new SettingFragment())
-//                        .addToBackStack(null)
-//                        .commit();
+                openColorPicker();
                 break;
             case R.id.exit:
                 MyExit exitFragment = MyExit.newInstance();
@@ -67,41 +132,66 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // Nested class to show add item frag
-    public static class AddItemFragment extends Fragment {
-        private EditText product_name, product_quantity;
-        private Button saveNewItemBtn;
-        private MainViewModel mainViewModel;
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.add_new_item_fragment, container, false);
-        }
+    private void openColorPicker() {
+        //need to read from the sp
+        int color = getColorFromRaw();
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, color /*initialColor*/, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+                // user cancelled the dialog
+            }
 
-        @Override
-        public void onViewCreated(View view, Bundle savedInstanceState) {
-            product_name = (EditText) view.findViewById(R.id.editText_ItemName);
-            product_quantity = (EditText) view.findViewById(R.id.editText_itemQuantity);
-            saveNewItemBtn = (Button) view.findViewById(R.id.button_saveNewItem);
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                // user selected a color
 
-            mainViewModel = MainViewModel.getInstance(getActivity().getApplication(), getActivity());
-
-            //Add new Item - On Click
-            saveNewItemBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if (product_name.getText().toString().matches("") || product_quantity.getText().toString().matches("")) {
-                        Toast toast = Toast.makeText(getContext(), R.string.fill_all_fields, Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-
-                    }
+                FileOutputStream fos = null;
+                try {
+                    fos = getApplication().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+                    String s ="color " + Integer.toString(color);
+                    fos.write(s.getBytes());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-            super.onViewCreated(view, savedInstanceState);
-
+                finally {
+                    if (fos != null) {
+                        try {
+                            fos.close();
+                        } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
+                View frag = findViewById(R.id.relativeLayout);
+                frag.setBackgroundColor(color);
+            }
+        });
+        colorPicker.show();
     }
+
+    private int getColorFromRaw() {
+        FileInputStream fis = null;
+        int color = Color.RED;
+        try {
+            fis = getApplication().openFileInput(FILE_NAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String tempColor;
+            while((tempColor = br.readLine()) != null){
+                String[] tokens = tempColor.split(" ");
+                if(tokens[0].equals("color"))
+                    color =Integer.parseInt(tokens[1]);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return color;
+    }
+
 }
