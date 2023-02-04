@@ -22,6 +22,7 @@ public class MainViewModel extends AndroidViewModel {
     public Activity activity;
     public Context context;
     private MutableLiveData<ArrayList<ShoppingItem>> itemsLiveData ;
+    private MutableLiveData<Integer> positionSelected;
     private ArrayList<ShoppingItem> shoppingList = new ArrayList<>();
 
     public MainViewModel(@NonNull Application application,Activity activity) {
@@ -29,6 +30,9 @@ public class MainViewModel extends AndroidViewModel {
         this.activity = activity;
         this.context = application;
         itemsLiveData = new MutableLiveData<>();
+        positionSelected = new MutableLiveData<>();
+        positionSelected.setValue(-1);
+        getItemsListByFile();
     }
 
     public static MainViewModel getInstance(Application application, Activity activity){
@@ -38,9 +42,26 @@ public class MainViewModel extends AndroidViewModel {
         return instance;
     }
 
+    public void setPositionSelected(Integer index){
+        positionSelected.setValue(index);
+    }
+
+    public MutableLiveData<Integer> getPositionSelected(){
+        return positionSelected;
+    }
 
     public MutableLiveData<ArrayList<ShoppingItem>> getItemsLiveData() {
         return itemsLiveData;
+    }
+
+    public void removeItemFromList(String name)
+    {
+        for(ShoppingItem item : shoppingList){
+            if (item.getName().equals(name)){
+                shoppingList.remove(item);
+            }
+        }
+        saveItemsListToFile();
     }
 
     // ******************* raw file **********************
@@ -66,6 +87,7 @@ public class MainViewModel extends AndroidViewModel {
                     ShoppingItem item = new ShoppingItem(name_quantity[0], Integer.parseInt(name_quantity[1]));
                     ret.add(item);
                 }
+                this.itemsLiveData.setValue(ret);
 
             }
         }catch (Exception e) {
@@ -75,24 +97,48 @@ public class MainViewModel extends AndroidViewModel {
         return ret;
     }
 
-    public void setItemsListByFile(String name, int quantity)
+    public void setItemsListByFile(String name, String quantity)
+    {
+        boolean bExist = false;
+        clearListByFile();   // clear file before writing
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("shoppingList.txt", Context.MODE_PRIVATE));
+            shoppingList = getItemsListByFile();
+            for (int i = 0; i < shoppingList.size(); i++) {
+                if (shoppingList.get(i).getName().equals(name)) { // if list contains the product, just update quantity
+                    shoppingList.get(i).setQuantity(Integer.valueOf(quantity));
+                    bExist = true;
+                }
+                // then write to file  -- need to delete before or auto??
+                outputStreamWriter.append(shoppingList.get(i).getName() + " " + shoppingList.get(i).getQuantity() + "\n");
+            }
+            if(!bExist){
+                ShoppingItem newItem = new ShoppingItem(name, Integer.valueOf(quantity));
+                shoppingList.add(newItem);
+                outputStreamWriter.append(name + " " + quantity + "\n");
+
+            }
+            this.itemsLiveData.setValue(shoppingList);
+            outputStreamWriter.flush();
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+
+    }
+
+    public void saveItemsListToFile()
     {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("shoppingList.txt", Context.MODE_PRIVATE));
-
-            for (int i = 0; i < shoppingList.size(); i++) {
-                if (shoppingList.get(i).getName().equals(name))   // if list contains the product, just update quantity
-                    shoppingList.get(i).setQuantity(quantity);
-                else {
-                    ShoppingItem newItem = new ShoppingItem(name, quantity);
-                    shoppingList.add(newItem);
-                }
-                // then write to file
+            shoppingList = getItemsListByFile();
+            for (int i = 0; i < shoppingList.size(); i++)
                 outputStreamWriter.write(shoppingList.get(i).getName() + " " + shoppingList.get(i).getQuantity() + "\n");
-            }
 
             outputStreamWriter.flush();
             outputStreamWriter.close();
+            this.itemsLiveData.setValue(shoppingList);
         }
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

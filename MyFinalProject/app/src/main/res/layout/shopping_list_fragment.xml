@@ -75,8 +75,8 @@
 
                 <Button
                     android:id="@+id/btnSaveDateAndTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="34dp"
+                    android:layout_height="22dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="10dp"
