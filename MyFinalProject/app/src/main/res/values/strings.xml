@@ -5,7 +5,8 @@
     <string name="select">Select</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
-    <string name="txt_save_date_time">Save</string>
+    <string name="txt_Alarm_ON">Alarm ON</string>
+    <string name="txt_Alarm_OFF">Alarm OFF</string>
     <string name="product_name">Product</string>
     <string name="remove">Remove</string>
     <string name="edit">Edit</string>
