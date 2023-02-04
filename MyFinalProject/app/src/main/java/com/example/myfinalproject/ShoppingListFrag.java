@@ -72,7 +72,7 @@ public class ShoppingListFrag extends Fragment {
 
                                 String date = day + "/" + month + "/" + year;
                                 txtView_Date.setText(date);
-                                txtView_Date.setTextColor(Color.parseColor("#ff2d57"));
+                                txtView_Date.setTextColor(Color.parseColor("#FF0000"));
 //                                if (txtView_Time.getText().toString().length() >= 1)
 //                                    btnSaveDateAndTime.setVisibility(View.VISIBLE);
                             }
@@ -80,6 +80,11 @@ public class ShoppingListFrag extends Fragment {
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
+                Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                positiveButton.setTextColor(Color.BLACK);
+
+                Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                negativeButton.setTextColor(Color.BLACK);
 
             }
         });
@@ -101,7 +106,7 @@ public class ShoppingListFrag extends Fragment {
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
                                 String time = String.format("%02d", sHour) + ":" + String.format("%02d", sMinute);
                                 txtView_Time.setText(time);
-                                txtView_Time.setTextColor(Color.parseColor("#ff2d57"));
+                                txtView_Time.setTextColor(Color.parseColor("#FF0000"));
 //                                if (tvDatePicker.getText().toString().length() >= 1)
 //                                    btnSaveDateAndTime.setVisibility(View.VISIBLE);
                             }
