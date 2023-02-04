@@ -25,14 +25,13 @@ public class AddItemFragment extends Fragment {
 
     AddItemFragment(){}
 
-    AddItemFragment(String name, String quantity, Integer position) {
+    AddItemFragment(String name, String quantity, Integer position, boolean edit) {
         this.name = name;
         this.quantity = quantity;
         this.position = position;
-        if (!(name == "")){
-            prevName = name;
-            bEdit = true; // for updating existing item
-        }
+        bEdit = edit;
+
+//        prevName = name;
     }
 
     @Override
@@ -48,6 +47,9 @@ public class AddItemFragment extends Fragment {
         product_quantity = (EditText) view.findViewById(R.id.editText_itemQuantity);
         saveNewItemBtn = (Button) view.findViewById(R.id.button_saveNewItem);
 
+        product_name.setText(name);
+        product_quantity.setText(quantity);
+
         mainViewModel = MainViewModel.getInstance(getActivity().getApplication(), getActivity());
 
         //Add new Item - On Click
@@ -60,11 +62,14 @@ public class AddItemFragment extends Fragment {
                     toast.show();
                 } else {
                     // remove last product from the list
-                    if(bEdit){
-                        mainViewModel.removeItemFromList(prevName);
-                    }
+//                    if(bEdit){
+//                        mainViewModel.removeItemFromList(name);
+//
+//                    }
                     // insert new product to the list
                     mainViewModel.setItemsListByFile(product_name.getText().toString(), product_quantity.getText().toString());
+                    product_name.setText("");
+                    product_quantity.setText("");
                     Toast toast = Toast.makeText(getContext(), R.string.added_to_list_toast, Toast.LENGTH_SHORT);
                     toast.show();
                 }

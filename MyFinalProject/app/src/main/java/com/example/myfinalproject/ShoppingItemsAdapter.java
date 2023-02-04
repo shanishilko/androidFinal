@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -74,7 +75,8 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
                                 int position = holder.getAdapterPosition();
 
                                 itemsList.remove(position);
-                                mainViewModel.removeItemFromList(item.getName());
+                                mainViewModel.saveItemsListToFile();
+//                                mainViewModel.removeItemFromList(item.getName());
 
                                 // if the position equals to the current selected row so we need to unselected completely the selected row
                                 if(position == mainViewModel.getPositionSelected().getValue())
@@ -110,7 +112,7 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
 //                getFragmentManager();
                activity.getSupportFragmentManager().beginTransaction().
                         addToBackStack(null).
-                        replace(R.id.main, new AddItemFragment(holder.textView_itemName.getText().toString(),holder.textView_itemQuantity.getText().toString(), holder.getAdapterPosition()), "ADD_NEW_ITEM_FRAGMENT").
+                        replace(R.id.main, new AddItemFragment(holder.textView_itemName.getText().toString(),holder.textView_itemQuantity.getText().toString(), holder.getAdapterPosition(), true), "ADD_NEW_ITEM_FRAGMENT").
                         commit();
             }
         });
@@ -118,8 +120,8 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
 
     @Override
     public int getItemCount() {
-//        return itemsList.size();
-        return 0;
+        return itemsList.size();
+//        return 0;
     }
 
 
