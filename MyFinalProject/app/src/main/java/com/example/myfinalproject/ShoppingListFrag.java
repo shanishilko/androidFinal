@@ -1,5 +1,6 @@
 package com.example.myfinalproject;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -64,6 +66,7 @@ public class ShoppingListFrag extends Fragment {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
                                 month = month + 1;
 //                                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
 
@@ -75,7 +78,6 @@ public class ShoppingListFrag extends Fragment {
                             }
                         },
                         year, month, day);
-
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
 
@@ -106,7 +108,14 @@ public class ShoppingListFrag extends Fragment {
                         }, hour, minutes, true);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+
                 dialog.show();
+                Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                positiveButton.setTextColor(Color.BLACK);
+
+                Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                negativeButton.setTextColor(Color.BLACK);
             }
         });
 

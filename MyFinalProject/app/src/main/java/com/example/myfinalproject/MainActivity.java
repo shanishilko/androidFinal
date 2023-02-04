@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -146,25 +147,29 @@ public class MainActivity extends AppCompatActivity {
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 // user selected a color
 
-                FileOutputStream fos = null;
-                try {
-                    fos = getApplication().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-                    String s ="color " + Integer.toString(color);
-                    fos.write(s.getBytes());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                finally {
-                    if (fos != null) {
-                        try {
-                            fos.close();
-                        } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplication());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("color",color);
+                editor.apply();
+//                FileOutputStream fos = null;
+//                try {
+//                    fos = getApplication().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+//                    String s ="color " + Integer.toString(color);
+//                    fos.write(s.getBytes());
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                finally {
+//                    if (fos != null) {
+//                        try {
+//                            fos.close();
+//                        } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
 
                 View frag = findViewById(R.id.relativeLayout);
                 frag.setBackgroundColor(color);
@@ -174,23 +179,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int getColorFromRaw() {
-        FileInputStream fis = null;
-        int color = Color.RED;
-        try {
-            fis = getApplication().openFileInput(FILE_NAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader br = new BufferedReader(isr);
-            String tempColor;
-            while((tempColor = br.readLine()) != null){
-                String[] tokens = tempColor.split(" ");
-                if(tokens[0].equals("color"))
-                    color =Integer.parseInt(tokens[1]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        int color = Color.WHITE;
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        color = sharedPref.getInt("color",color);
+
+//        FileInputStream fis = null;
+//        try {
+//            fis = getApplication().openFileInput(FILE_NAME);
+//            InputStreamReader isr = new InputStreamReader(fis);
+//            BufferedReader br = new BufferedReader(isr);
+//            String tempColor;
+//            while((tempColor = br.readLine()) != null){
+//                String[] tokens = tempColor.split(" ");
+//                if(tokens[0].equals("color"))
+//                    color =Integer.parseInt(tokens[1]);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return color;
     }
 
