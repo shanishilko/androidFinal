@@ -41,11 +41,12 @@
 
                 <TextView
                     android:id="@+id/text_view_Date"
-                    android:layout_width="94dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="false"
                     android:layout_alignParentBottom="false"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
                     android:hint="@string/select"
                     android:paddingStart="5dp"
                     android:textColorHint="#B1A1A1"
@@ -193,7 +194,7 @@
 
                 <TextView
                     android:id="@+id/textView6"
-                    android:layout_width="62dp"
+                    android:layout_width="33dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
@@ -205,7 +206,7 @@
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:text="@string/quantity"
                     android:textColor="#000000"
@@ -239,18 +240,37 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <Button
-                android:id="@+id/btnSaveDateAndTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="0dp"
-                android:layout_toEndOf="@+id/text_view_Time"
-                android:text="@string/txt_Alarm_ON"
-                android:textAllCaps="false"
-                android:visibility="invisible" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSaveDateAndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toEndOf="@+id/text_view_Time"
+                    android:text="@string/txt_Alarm_ON"
+                    android:textAllCaps="false"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/btnClearList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/clear_btn"
+                    android:textAllCaps="false"
+                    android:visibility="visible" />
+            </LinearLayout>
 
         </LinearLayout>
 

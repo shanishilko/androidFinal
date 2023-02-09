@@ -45,10 +45,11 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private ShoppingItemsAdapter itemsAdapter;
     private TextView txtView_Date, txtView_Time;
-    private Button runService;
+    private Button runService, clearListBtn;
     private boolean flagForDate = false;
     private boolean flagForTime = false;
     private boolean flagAlarm = false;
+    private MainViewModel mainViewModel;
 
 
     @Override
@@ -68,6 +69,8 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
         txtView_Date = (TextView) view.findViewById(R.id.text_view_Date);
         txtView_Time= (TextView) view.findViewById(R.id.text_view_Time);
         runService= (Button) view.findViewById(R.id.btnSaveDateAndTime);
+        clearListBtn =(Button) view.findViewById(R.id.btnClearList);
+        mainViewModel = MainViewModel.getInstance(getActivity().getApplication(), getActivity());
 
         runService.setOnClickListener(this);
 
@@ -93,6 +96,25 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
 //            }
 //        });
 
+        clearListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainViewModel.clearListByFile();
+                runService.setVisibility(View.INVISIBLE);
+                txtView_Date.setText("Select");
+                txtView_Date.setTextColor(Color.parseColor("#B1A1A1"));
+                txtView_Time.setText("Select");
+                txtView_Time.setTextColor(Color.parseColor("#B1A1A1"));
+
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("Time",null);
+                editor.putString("Date",null);
+                editor.putBoolean("alarm",false);
+                editor.apply();
+            }
+        });
+
 
         // Date Picker
         txtView_Date.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +137,7 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
 
                                 String date = day + "/" + month + "/" + year;
                                 txtView_Date.setText(date);
-                                txtView_Date.setTextColor(Color.parseColor("#FF0000"));
+                                txtView_Date.setTextColor(Color.parseColor("#db5a6b"));
                                 flagForDate = true;
                                 if (flagForTime == true)
                                     runService.setVisibility(View.VISIBLE);
@@ -150,7 +172,7 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
                                 String time = String.format("%02d", sHour) + ":" + String.format("%02d", sMinute);
                                 txtView_Time.setText(time);
-                                txtView_Time.setTextColor(Color.parseColor("#FF0000"));
+                                txtView_Time.setTextColor(Color.parseColor("#db5a6b"));
                                 flagForTime = true;
                                 if (flagForDate == true){
                                     runService.setVisibility(View.VISIBLE);
@@ -173,7 +195,7 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view) {  // save date and time
         //run service
         if(flagAlarm ==false){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());

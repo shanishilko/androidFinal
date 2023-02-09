@@ -21,6 +21,11 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdapter.ItemsViewHolder> {
@@ -36,6 +41,8 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
         this.context = context;
         this.activity = activity;
 
+        String res = readFromSMSFile();
+
         mainViewModel.getItemsLiveData().observe((LifecycleOwner) context, new Observer<ArrayList<ShoppingItem>>() {
             @Override
             public void onChanged(ArrayList<ShoppingItem> items) {
@@ -43,6 +50,27 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
                 notifyDataSetChanged();
             }
         });
+    }
+    public String readFromSMSFile() {
+        StringBuilder sb = new StringBuilder();
+        final String FILE_NAME2 = "smsShoppingList.txt";
+        try {
+            FileInputStream fis = context.openFileInput(FILE_NAME2);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            br.close();
+            isr.close();
+            fis.close();
+            FileOutputStream fos = context.openFileOutput("smsShoppingList.txt", Context.MODE_PRIVATE);
+            fos.write("".getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 
     @NonNull
@@ -74,9 +102,9 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
                             public void onClick(DialogInterface dialog, int id) {
                                 int position = holder.getAdapterPosition();
 
-                                itemsList.remove(position);
-                                mainViewModel.saveItemsListToFile();
-//                                mainViewModel.removeItemFromList(item.getName());
+//                                itemsList.remove(position);
+                                mainViewModel.removeItemFromList(item.getName());
+//                                mainViewModel.saveItemsListToFile();
 
                                 // if the position equals to the current selected row so we need to unselected completely the selected row
                                 if(position == mainViewModel.getPositionSelected().getValue())
@@ -85,7 +113,7 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
                                 if(position < mainViewModel.getPositionSelected().getValue())
                                     mainViewModel.setPositionSelected(mainViewModel.getPositionSelected().getValue()-1);
 
-                                notifyDataSetChanged();
+//                                notifyDataSetChanged();
                                 dialog.cancel();
                             }
                         });

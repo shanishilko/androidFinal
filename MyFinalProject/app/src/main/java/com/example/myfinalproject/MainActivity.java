@@ -35,6 +35,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -42,6 +43,32 @@ public class MainActivity extends AppCompatActivity {
     private static final int RECEIVE_SMS_REQUEST_CODE   = 1;
     private static final int READ_SMS_REQUEST_CODE      = 2;
     private static final String FILE_NAME = "rawColor.txt";
+
+
+    ////////////////////////////
+//    public String readFromSMSFile() {
+//        StringBuilder sb = new StringBuilder();
+//        final String FILE_NAME2 = "smsShoppingList.txt";
+//        try {
+//            FileInputStream fis = openFileInput(FILE_NAME2);
+//            InputStreamReader isr = new InputStreamReader(fis);
+//            BufferedReader br = new BufferedReader(isr);
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                sb.append(line);
+//            }
+//            br.close();
+//            isr.close();
+//            fis.close();
+//            FileOutputStream fos = openFileOutput("smsShoppingList.txt", Context.MODE_PRIVATE);
+//            fos.write("".getBytes());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return sb.toString();
+//    }
+//    ////////////////////////////////
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         askForSmsDangerousPermissions();
 
-    }
 
+    }
 
 
     private void askForSmsDangerousPermissions() {

@@ -10,11 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.io.FileInputStream;
 import java.util.Map;
 
 public class MainViewModel extends AndroidViewModel {
@@ -63,6 +66,7 @@ public class MainViewModel extends AndroidViewModel {
         for(ShoppingItem item : shoppingList){
             if (item.getName().equals(name)){
                 shoppingList.remove(item);
+                break;
             }
         }
         saveItemsListToFile();
@@ -107,7 +111,7 @@ public class MainViewModel extends AndroidViewModel {
     public void setItemsListByFile(String name, String quantity)
     {
         boolean bExist = false;
-        shoppingList = getItemsListByFile();
+        ArrayList<ShoppingItem> shoppingList = getItemsListByFile();
         clearListByFile();   // clear file before writing
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("shoppingList.txt", Context.MODE_PRIVATE));
@@ -117,7 +121,7 @@ public class MainViewModel extends AndroidViewModel {
                     shoppingList.get(i).setQuantity(Integer.valueOf(quantity));
                     bExist = true;
                 }
-                // then write to file  -- need to delete before or auto??
+                // then write to file -- need to delete before or auto??
                 outputStreamWriter.append(shoppingList.get(i).getName() + " " + shoppingList.get(i).getQuantity() + "\n");
             }
             if(!bExist){
@@ -126,6 +130,7 @@ public class MainViewModel extends AndroidViewModel {
                 outputStreamWriter.append(name + " " + quantity + "\n");
 
             }
+            this.shoppingList = shoppingList;
             this.itemsLiveData.setValue(shoppingList);
             outputStreamWriter.flush();
             outputStreamWriter.close();
@@ -142,8 +147,9 @@ public class MainViewModel extends AndroidViewModel {
         try {
 //            shoppingList = getItemsListByFile();
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("shoppingList.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write("");
             for (int i = 0; i < shoppingList.size(); i++)
-                outputStreamWriter.write(shoppingList.get(i).getName() + " " + shoppingList.get(i).getQuantity() + "\n");
+                outputStreamWriter.append(shoppingList.get(i).getName() + " " + shoppingList.get(i).getQuantity() + "\n");
 
             outputStreamWriter.flush();
             outputStreamWriter.close();
@@ -157,12 +163,14 @@ public class MainViewModel extends AndroidViewModel {
     }
 
 
-    private void clearListByFile() {
+    public void clearListByFile() {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("shoppingList.txt", Context.MODE_PRIVATE));
             outputStreamWriter.write("");
             outputStreamWriter.flush();
             outputStreamWriter.close();
+            shoppingList.clear();
+            this.itemsLiveData.setValue(shoppingList);
         }
         catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

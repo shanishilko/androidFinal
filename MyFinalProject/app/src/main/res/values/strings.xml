@@ -19,4 +19,5 @@
     <string name="fill_all_fields">Please Fill All The Fields</string>
     <string name="remove_item_btnDialog">Do you want to delete the item from the list?</string>
     <string name="added_to_list_toast">The item was added to the list</string>
+    <string name="clear_btn">Clear List</string>
 </resources>
