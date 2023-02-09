@@ -77,6 +77,19 @@
                     android:textColorHint="#B1A1A1"
                     android:textSize="18sp" />
 
+<!--                <Button-->
+<!--                    android:id="@+id/btnSaveDateAndTime"-->
+<!--                    android:layout_width="34dp"-->
+<!--                    android:layout_height="22dp"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="10dp"-->
+<!--                    android:layout_toEndOf="@+id/text_view_Time"-->
+<!--                    android:text="@string/txt_save_date_time"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:visibility="invisible" />-->
 
             </LinearLayout>
 
@@ -203,7 +216,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/edit"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -212,7 +224,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/remove"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
