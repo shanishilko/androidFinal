@@ -85,14 +85,16 @@ public class SMSReceiver extends BroadcastReceiver {
                             Integer num = Integer.valueOf(prodectAmount);
                             if(num!=null){
                                 insertToShoppingList(prodectName,num ,flagOfOpenClass);
+                                String data = "Add to shopping list: " + prodectName + " " + num;
+                                Toast.makeText(context, data, Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 }
             }
 
-            String data = "New message from: " + sender + "\nThe message: " + body;
-            Toast.makeText(context, data, Toast.LENGTH_LONG).show();
+//            String data = "New message from: " + sender + "\nThe message: " + body;
+//            Toast.makeText(context, data, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -109,7 +111,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 FileOutputStream fos = m_context.openFileOutput("smsShoppingList.txt", Context.MODE_APPEND);
                 fos.write(data.getBytes());
 //                String s= "milk 2";
-                Toast.makeText(m_context, data, Toast.LENGTH_LONG).show();
+//                Toast.makeText(m_context, data, Toast.LENGTH_LONG).show();
 //                fos.write(data.getBytes());
                 fos.close();
             } catch (IOException e) {
