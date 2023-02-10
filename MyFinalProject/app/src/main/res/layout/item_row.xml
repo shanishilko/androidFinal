@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/textView_itemName_inList"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_weight="1"
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/textView_itemQuantity_inList"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_weight="1"
@@ -30,19 +30,20 @@
     <Button
         android:id="@+id/button_editItem"
         android:layout_width="20dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
-        android:background="@drawable/btn"
-        android:backgroundTint="#F3F3F3"
-        android:drawableTint="#FFFFFF"
+        android:startColor="#2AF598"
+        android:endColor="#009EFD"
         android:text="@string/edit" />
+<!--        android:radius="50dp"-->
+<!--        android:background="@drawable/btn"-->
 
     <Button
         android:id="@+id/button_deleteItem"
-        android:layout_width="25dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"

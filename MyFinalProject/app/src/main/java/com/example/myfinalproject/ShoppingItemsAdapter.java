@@ -41,7 +41,6 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
         this.context = context;
         this.activity = activity;
 
-        String res = readFromSMSFile();
 
         mainViewModel.getItemsLiveData().observe((LifecycleOwner) context, new Observer<ArrayList<ShoppingItem>>() {
             @Override
@@ -50,6 +49,9 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
                 notifyDataSetChanged();
             }
         });
+
+        String res = readFromSMSFile();
+//        mainViewModel.setItemsListByFile(name, quantity);
     }
     public String readFromSMSFile() {
         StringBuilder sb = new StringBuilder();
@@ -61,6 +63,8 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
+                String prod[] = line.split(" ");
+                mainViewModel.setItemsListByFile(prod[0], prod[1]);
             }
             br.close();
             isr.close();
@@ -173,6 +177,8 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
             textView_itemQuantity = itemView.findViewById(R.id.textView_itemQuantity_inList);
             btnRemoveItem = itemView.findViewById(R.id.button_deleteItem);
             btnEditItem = itemView.findViewById(R.id.button_editItem);
+
+            btnEditItem.setBackground(context.getResources().getDrawable(R.drawable.btn));
 //            row_linearLayout = itemView.findViewById(R.id.item_in_shoppingList);
         }
 

@@ -99,20 +99,23 @@ public class SMSReceiver extends BroadcastReceiver {
     private void insertToShoppingList(String prodectName, Integer num,boolean flagOfOpenClass) {
 //        m_context.getApplicationContext(),
 //        if(flagOfOpenClass){
-//            MainViewModel.getInstance().setItemsListByFile(prodectName, String.valueOf(num));
-//        }else{
+        if(MainViewModel.getInstance() != null){
+            MainViewModel.getInstance().setItemsListByFile(prodectName, String.valueOf(num));
+//            String s = MainViewModel.getInstance().toString();
+        }else{
             // Write the data to the file
             String data = prodectName + " " + String.valueOf(num) + "\n";
             try {
                 FileOutputStream fos = m_context.openFileOutput("smsShoppingList.txt", Context.MODE_APPEND);
                 fos.write(data.getBytes());
 //                String s= "milk 2";
-                fos.write(data.getBytes());
+                Toast.makeText(m_context, data, Toast.LENGTH_LONG).show();
+//                fos.write(data.getBytes());
                 fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//        }
+        }
     }
 
 //    public ArrayList<ShoppingItem> getItemsListByFile() {
