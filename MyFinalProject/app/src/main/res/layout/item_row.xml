@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_in_shoppingList"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/item_in_shoppingList">
+    android:orientation="horizontal">
 
 
     <TextView
@@ -34,19 +34,21 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
-        android:startColor="#2AF598"
+        android:background="@drawable/btn"
         android:endColor="#009EFD"
+        android:startColor="#2AF598"
         android:text="@string/edit" />
-<!--        android:radius="50dp"-->
-<!--        android:background="@drawable/btn"-->
+    <!--        android:radius="50dp"-->
 
     <Button
         android:id="@+id/button_deleteItem"
-        android:layout_width="35dp"
-        android:layout_height="45dp"
+        android:layout_width="5dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
-        android:background="@drawable/btn"
-        android:text="@string/delete" />
+        android:background="@drawable/delete"
+        android:backgroundTint="#081F9E" />
 </LinearLayout>

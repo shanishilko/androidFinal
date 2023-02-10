@@ -25,23 +25,6 @@ public class SMSReceiver extends BroadcastReceiver {
 
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
     private Context m_context;
-/////////////////////////////////////////////////
-//    private static final String FILE_NAME = "data.txt";
-//    @Override
-//    public void onReceive(Context context, Intent intent) {
-//        // Get the data to be written to the file
-//        String data = "Ziv 1";
-//
-//        // Write the data to the file
-//        try {
-//            FileOutputStream fos = context.openFileOutput(FILE_NAME, Context.MODE_APPEND);
-//            fos.write(data.getBytes());
-//            fos.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//////////////////////////////////////////////////////
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -55,18 +38,6 @@ public class SMSReceiver extends BroadcastReceiver {
                 flagOfOpenClass = true;
             }
         }
-
-
-
-//        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-//        List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
-//        if(taskInfo.get(0).topActivity.getPackageName().equals(context.getPackageName())) {
-//            // The app is in the foreground
-//            flagOfOpenClass = true;
-//        } else {
-//            // The app is closed
-//            flagOfOpenClass = false;
-//        }
 
         SmsMessage[] messages = Telephony.Sms.Intents.getMessagesFromIntent(intent);
         SmsMessage message = messages[0];

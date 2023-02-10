@@ -178,8 +178,6 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
             btnRemoveItem = itemView.findViewById(R.id.button_deleteItem);
             btnEditItem = itemView.findViewById(R.id.button_editItem);
 
-            btnEditItem.setBackground(context.getResources().getDrawable(R.drawable.btn));
-//            row_linearLayout = itemView.findViewById(R.id.item_in_shoppingList);
         }
 
         public void fillData(String name, int quantity){
