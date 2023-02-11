@@ -60,7 +60,7 @@ public class myService extends Service {
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Shopping list App")
-                .setContentText("You have to go to shop at " + date + ", " + time)
+                .setContentText("You need to go shopping on " + date + ", at " + time)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent)
                 .build();
