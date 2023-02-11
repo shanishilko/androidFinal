@@ -57,6 +57,7 @@ public class AddItemFragment extends Fragment {
         product_name.setText(name);
         product_quantity.setText(quantity);
         constraintlayout =  view.findViewById(R.id.layout);
+        color = MainActivity.getColorFromRaw();
         constraintlayout.setBackgroundTintList(ColorStateList.valueOf(color));
         mainViewModel = MainViewModel.getInstance(getActivity().getApplication(), getActivity());
 
