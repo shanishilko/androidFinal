@@ -42,11 +42,11 @@
 
     <Button
         android:id="@+id/button_deleteItem"
-        android:layout_width="5dp"
+        android:layout_width="1dp"
         android:layout_height="35dp"
-        android:layout_marginStart="5dp"
+
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:background="@drawable/delete"
