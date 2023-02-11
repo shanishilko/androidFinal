@@ -1,6 +1,7 @@
 package com.example.myfinalproject;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 public class AddItemFragment extends Fragment {
@@ -21,9 +24,13 @@ public class AddItemFragment extends Fragment {
     private String name, quantity, prevName;
     boolean bEdit = false;
     Integer position = 0;
+    static private int color;
+    private ConstraintLayout constraintlayout;
 //    Context context;
 
-    AddItemFragment(){}
+    AddItemFragment(int color){
+        this.color = color;
+    }
 
     AddItemFragment(String name, String quantity, Integer position, boolean edit) {
         this.name = name;
@@ -49,7 +56,8 @@ public class AddItemFragment extends Fragment {
 
         product_name.setText(name);
         product_quantity.setText(quantity);
-
+        constraintlayout =  view.findViewById(R.id.layout);
+        constraintlayout.setBackgroundTintList(ColorStateList.valueOf(color));
         mainViewModel = MainViewModel.getInstance(getActivity().getApplication(), getActivity());
 
         //Add new Item - On Click

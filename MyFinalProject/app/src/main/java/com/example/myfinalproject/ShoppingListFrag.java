@@ -73,7 +73,9 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
         mainViewModel = MainViewModel.getInstance(getActivity().getApplication(), getActivity());
 
         runService.setOnClickListener(this);
-
+        int color = MainActivity.getColorFromRaw();
+        View frag = view.findViewById(R.id.relativeLayout);
+        frag.setBackgroundColor(color);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         flagAlarm = sharedPref.getBoolean("alarm",false);
         if(flagAlarm== true){

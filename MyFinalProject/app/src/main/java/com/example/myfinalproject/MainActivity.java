@@ -43,37 +43,15 @@ public class MainActivity extends AppCompatActivity {
     private static final int RECEIVE_SMS_REQUEST_CODE   = 1;
     private static final int READ_SMS_REQUEST_CODE      = 2;
     private static final String FILE_NAME = "rawColor.txt";
+    public static int color;
+    static Context context;
 
-
-    ////////////////////////////
-//    public String readFromSMSFile() {
-//        StringBuilder sb = new StringBuilder();
-//        final String FILE_NAME2 = "smsShoppingList.txt";
-//        try {
-//            FileInputStream fis = openFileInput(FILE_NAME2);
-//            InputStreamReader isr = new InputStreamReader(fis);
-//            BufferedReader br = new BufferedReader(isr);
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                sb.append(line);
-//            }
-//            br.close();
-//            isr.close();
-//            fis.close();
-//            FileOutputStream fos = openFileOutput("smsShoppingList.txt", Context.MODE_PRIVATE);
-//            fos.write("".getBytes());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return sb.toString();
-//    }
-//    ////////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        context = getApplicationContext();
         askForSmsDangerousPermissions();
 
 
@@ -90,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         // This is where you would put your code that needs to be executed
         // after the activity has been fully initialized
-        int color = getColorFromRaw();
+        color = getColorFromRaw();
         View frag = findViewById(R.id.relativeLayout);
         frag.setBackgroundColor(color);
     }
@@ -151,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.addItem:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main, new AddItemFragment())
+                        .replace(R.id.main, new AddItemFragment(color))
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -163,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openColorPicker() {
         //need to read from the sp
-        int color = getColorFromRaw();
+        color = getColorFromRaw();
         AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, color /*initialColor*/, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
@@ -178,25 +156,6 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putInt("color",color);
                 editor.apply();
-//                FileOutputStream fos = null;
-//                try {
-//                    fos = getApplication().openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-//                    String s ="color " + Integer.toString(color);
-//                    fos.write(s.getBytes());
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                finally {
-//                    if (fos != null) {
-//                        try {
-//                            fos.close();
-//                        } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
 
                 View frag = findViewById(R.id.relativeLayout);
                 frag.setBackgroundColor(color);
@@ -205,29 +164,14 @@ public class MainActivity extends AppCompatActivity {
         colorPicker.show();
     }
 
-    private int getColorFromRaw() {
+    public static int getColorFromRaw() {
 
-        int color = Color.WHITE;
+        color = Color.WHITE;
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         color = sharedPref.getInt("color",color);
 
-//        FileInputStream fis = null;
-//        try {
-//            fis = getApplication().openFileInput(FILE_NAME);
-//            InputStreamReader isr = new InputStreamReader(fis);
-//            BufferedReader br = new BufferedReader(isr);
-//            String tempColor;
-//            while((tempColor = br.readLine()) != null){
-//                String[] tokens = tempColor.split(" ");
-//                if(tokens[0].equals("color"))
-//                    color =Integer.parseInt(tokens[1]);
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
 
         return color;
     }
