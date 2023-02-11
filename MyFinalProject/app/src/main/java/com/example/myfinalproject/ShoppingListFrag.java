@@ -4,6 +4,8 @@ package com.example.myfinalproject;
 
 
 
+import static com.example.myfinalproject.MainActivity.context;
+
 import androidx.core.content.ContextCompat;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -11,6 +13,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -100,21 +103,45 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
 
         clearListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mainViewModel.clearListByFile();
-                runService.setVisibility(View.INVISIBLE);
-                txtView_Date.setText("Select");
-                txtView_Date.setTextColor(Color.parseColor("#B1A1A1"));
-                txtView_Time.setText("Select");
-                txtView_Time.setTextColor(Color.parseColor("#B1A1A1"));
+            public void onClick(View view) {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                builder1.setMessage(R.string.remove_list_btnDialog);
+                builder1.setCancelable(true);
 
-                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("Time",null);
-                editor.putString("Date",null);
-                editor.putBoolean("alarm",false);
-                editor.apply();
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mainViewModel.clearListByFile();
+                                runService.setVisibility(View.INVISIBLE);
+                                txtView_Date.setText("Select");
+                                txtView_Date.setTextColor(Color.parseColor("#B1A1A1"));
+                                txtView_Time.setText("Select");
+                                txtView_Time.setTextColor(Color.parseColor("#B1A1A1"));
+
+                                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("Time",null);
+                                editor.putString("Date",null);
+                                editor.putBoolean("alarm",false);
+                                editor.apply();
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
+
             }
+
         });
 
 
