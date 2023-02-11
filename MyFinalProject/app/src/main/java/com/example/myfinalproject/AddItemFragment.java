@@ -71,10 +71,9 @@ public class AddItemFragment extends Fragment {
                     toast.show();
                 } else {
                     // remove last product from the list
-//                    if(bEdit){
-//                        mainViewModel.removeItemFromList(name);
-//
-//                    }
+                    if(bEdit){
+                        mainViewModel.removeItemFromList(name);
+                    }
                     // insert new product to the list
                     mainViewModel.setItemsListByFile(product_name.getText().toString(), product_quantity.getText().toString());
                     product_name.setText("");
