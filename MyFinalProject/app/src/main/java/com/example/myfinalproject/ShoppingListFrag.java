@@ -1,9 +1,6 @@
 package com.example.myfinalproject;
 
 
-
-
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -53,7 +50,7 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
         itemsAdapter = new ShoppingItemsAdapter(getActivity().getApplication(), getContext(), getActivity(), this); // create an instance of the adapter
         recyclerView = view.findViewById(R.id.recycle_view);
         recyclerView.setAdapter(itemsAdapter); // set the instance of the adapter to the recyclerView
-        /// check if row below needed !!!!!!!!!
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // What is the position of the list vertical or linear
         txtView_Date = (TextView) view.findViewById(R.id.text_view_Date);
         txtView_Time= (TextView) view.findViewById(R.id.text_view_Time);
