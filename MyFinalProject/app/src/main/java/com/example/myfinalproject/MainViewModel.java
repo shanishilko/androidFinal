@@ -128,7 +128,6 @@ public class MainViewModel extends AndroidViewModel {
                 ShoppingItem newItem = new ShoppingItem(name, Integer.valueOf(quantity));
                 shoppingList.add(newItem);
                 outputStreamWriter.append(name + " " + quantity + "\n");
-
             }
             this.shoppingList = shoppingList;
             this.itemsLiveData.setValue(shoppingList);
@@ -145,7 +144,6 @@ public class MainViewModel extends AndroidViewModel {
     public void saveItemsListToFile()
     {
         try {
-//            shoppingList = getItemsListByFile();
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("shoppingList.txt", Context.MODE_PRIVATE));
             outputStreamWriter.write("");
             for (int i = 0; i < shoppingList.size(); i++)
@@ -159,7 +157,6 @@ public class MainViewModel extends AndroidViewModel {
             this.itemsLiveData.setValue(shoppingList);
             Log.e("Exception", "File write failed: " + e.toString());
         }
-
     }
 
 

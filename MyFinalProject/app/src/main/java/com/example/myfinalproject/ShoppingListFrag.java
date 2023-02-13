@@ -4,24 +4,17 @@ package com.example.myfinalproject;
 
 
 
-import static com.example.myfinalproject.MainActivity.context;
-
-import androidx.core.content.ContextCompat;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +23,6 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,17 +30,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class ShoppingListFrag extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private ShoppingItemsAdapter itemsAdapter;
     private TextView txtView_Date, txtView_Time;
-    private Button runService, clearListBtn;
+    private Button alarmServiceBtn, clearListBtn;
     private boolean flagForDate = false;
     private boolean flagForTime = false;
     private boolean flagAlarm = false;
@@ -71,12 +57,12 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // What is the position of the list vertical or linear
         txtView_Date = (TextView) view.findViewById(R.id.text_view_Date);
         txtView_Time= (TextView) view.findViewById(R.id.text_view_Time);
-        runService= (Button) view.findViewById(R.id.btnSaveDateAndTime);
+        alarmServiceBtn = (Button) view.findViewById(R.id.btnSaveDateAndTime);
         clearListBtn =(Button) view.findViewById(R.id.btnClearList);
         mainViewModel = MainViewModel.getInstance(getActivity().getApplication(), getActivity());
 
-        runService.setOnClickListener(this);
-        int color = MainActivity.getColorFromRaw();
+        alarmServiceBtn.setOnClickListener(this);
+        int color = MainActivity.getColorFromSP();
         View frag = view.findViewById(R.id.relativeLayout);
         frag.setBackgroundColor(color);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -86,20 +72,9 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
             txtView_Date.setText(sharedPref.getString("Date",null));
             txtView_Time.setTextColor(Color.parseColor("#FF0000"));
             txtView_Date.setTextColor(Color.parseColor("#FF0000"));
-            runService.setText(getResources().getString(R.string.txt_Alarm_OFF));
-            runService.setVisibility(View.VISIBLE);
+            alarmServiceBtn.setText(getResources().getString(R.string.txt_Alarm_OFF));
+            alarmServiceBtn.setVisibility(View.VISIBLE);
         }
-//        runService.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                addTimeToDB(tvTimePicker.getText().toString());
-//                addDateToDB(tvDatePicker.getText().toString());
-//                btnSaveDateAndTime.setVisibility(View.INVISIBLE);
-//
-//                AlarmNotification alarmNotification = AlarmNotification.getAlarmInstance(getContext());
-//                alarmNotification.setNewAlarm(tvDatePicker.getText().toString(), tvTimePicker.getText().toString());
-//            }
-//        });
 
         clearListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +88,7 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 mainViewModel.clearListByFile();
-                                runService.setVisibility(View.INVISIBLE);
+                                alarmServiceBtn.setVisibility(View.INVISIBLE);
                                 txtView_Date.setText("Select");
                                 txtView_Date.setTextColor(Color.parseColor("#B1A1A1"));
                                 txtView_Time.setText("Select");
@@ -138,10 +113,7 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
 
                 AlertDialog alert11 = builder1.create();
                 alert11.show();
-
-
             }
-
         });
 
 
@@ -169,7 +141,7 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
                                 txtView_Date.setTextColor(Color.parseColor("#db5a6b"));
                                 flagForDate = true;
                                 if (flagForTime == true)
-                                    runService.setVisibility(View.VISIBLE);
+                                    alarmServiceBtn.setVisibility(View.VISIBLE);
                             }
                         },
                         year, month, day);
@@ -183,7 +155,6 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
 
             }
         });
-
 
         // Time Picker
         txtView_Time.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +175,7 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
                                 txtView_Time.setTextColor(Color.parseColor("#db5a6b"));
                                 flagForTime = true;
                                 if (flagForDate == true){
-                                    runService.setVisibility(View.VISIBLE);
+                                    alarmServiceBtn.setVisibility(View.VISIBLE);
                                 }
                             }
                         }, hour, minutes, true);
@@ -226,20 +197,20 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {  // save date and time
         //run service
-        if(flagAlarm ==false){
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("Time",txtView_Time.getText().toString());
-        editor.putString("Date",txtView_Date.getText().toString());
-        editor.putBoolean("alarm",true);
-        editor.apply();
+        if(flagAlarm == false){
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("Time",txtView_Time.getText().toString());
+            editor.putString("Date",txtView_Date.getText().toString());
+            editor.putBoolean("alarm",true);
+            editor.apply();
 
-        Intent serviceIntent = new Intent(getContext(), myService.class);
-        serviceIntent.putExtra("Time",txtView_Time.getText().toString());
-        serviceIntent.putExtra("Date",txtView_Date.getText().toString());
-        getActivity().startService(serviceIntent);
-        flagAlarm=true;
-        runService.setText(getResources().getString(R.string.txt_Alarm_OFF));
+            Intent serviceIntent = new Intent(getContext(), myService.class);
+            serviceIntent.putExtra("Time",txtView_Time.getText().toString());
+            serviceIntent.putExtra("Date",txtView_Date.getText().toString());
+            getActivity().startService(serviceIntent);
+            flagAlarm=true;
+            alarmServiceBtn.setText(getResources().getString(R.string.txt_Alarm_OFF));
         }else{
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -252,19 +223,8 @@ public class ShoppingListFrag extends Fragment implements View.OnClickListener {
             serviceIntent.setAction("StopService");
             getActivity().stopService(serviceIntent);
             flagAlarm=false;
-            runService.setText(getResources().getString(R.string.txt_Alarm_ON));
-
+            alarmServiceBtn.setText(getResources().getString(R.string.txt_Alarm_ON));
         }
     }
 
-//    private boolean isMyServiceRunning(Class<?> serviceClass) {
-//        ActivityManager manager = (ActivityManager) ContextCompat.getSystemService(Context.ACTIVITY_SERVICE);
-
-//        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-//            if (serviceClass.getName().equals(service.service.getClassName())) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 }

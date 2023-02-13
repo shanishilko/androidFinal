@@ -3,14 +3,9 @@ package com.example.myfinalproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.SharedPreferences;
 
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.Context;
@@ -19,30 +14,17 @@ import android.graphics.Color;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class MainActivity extends AppCompatActivity {
     private static final int RECEIVE_SMS_REQUEST_CODE   = 1;
     private static final int READ_SMS_REQUEST_CODE      = 2;
-    private static final String FILE_NAME = "rawColor.txt";
     public static int color;
     static Context context;
 
@@ -53,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
         askForSmsDangerousPermissions();
-
-
     }
 
 
@@ -68,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         // This is where you would put your code that needs to be executed
         // after the activity has been fully initialized
-        color = getColorFromRaw();
+        color = getColorFromSP();
         View frag = findViewById(R.id.relativeLayout);
         frag.setBackgroundColor(color);
     }
@@ -141,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openColorPicker() {
         //need to read from the sp
-        color = getColorFromRaw();
+        color = getColorFromSP();
         AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, color /*initialColor*/, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {
@@ -164,14 +144,12 @@ public class MainActivity extends AppCompatActivity {
         colorPicker.show();
     }
 
-    public static int getColorFromRaw() {
+    public static int getColorFromSP() {
 
         color = Color.WHITE;
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         color = sharedPref.getInt("color",color);
-
-
 
         return color;
     }

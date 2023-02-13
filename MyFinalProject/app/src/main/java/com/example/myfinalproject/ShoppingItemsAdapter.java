@@ -50,9 +50,9 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
             }
         });
 
-        String res = readFromSMSFile();
-//        mainViewModel.setItemsListByFile(name, quantity);
+        readFromSMSFile();   // if sms was sent while app was closed
     }
+
     public String readFromSMSFile() {
         StringBuilder sb = new StringBuilder();
         final String FILE_NAME2 = "smsShoppingList.txt";
@@ -81,7 +81,6 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
     @Override
     public ItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-//        listener = (ICountriesAdapterListener)parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context); // instance of the inflater
         View itemView = inflater.inflate(R.layout.item_row, parent, false); // get view of the item view object
         return new ItemsViewHolder(itemView); // return items view holder
@@ -104,20 +103,7 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
                         "Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                int position = holder.getAdapterPosition();
-
-//                                itemsList.remove(position);
                                 mainViewModel.removeItemFromList(item.getName());
-//                                mainViewModel.saveItemsListToFile();
-
-                                // if the position equals to the current selected row so we need to unselected completely the selected row
-                                if(position == mainViewModel.getPositionSelected().getValue())
-                                    mainViewModel.setPositionSelected(-1);
-
-                                if(position < mainViewModel.getPositionSelected().getValue())
-                                    mainViewModel.setPositionSelected(mainViewModel.getPositionSelected().getValue()-1);
-
-//                                notifyDataSetChanged();
                                 dialog.cancel();
                             }
                         });
@@ -132,8 +118,6 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
 
                 AlertDialog alert11 = builder1.create();
                 alert11.show();
-
-
             }
         });
 
@@ -141,10 +125,9 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
         holder.btnEditItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                getFragmentManager();
                activity.getSupportFragmentManager().beginTransaction().
                         addToBackStack(null).
-                        replace(R.id.main, new AddItemFragment(holder.textView_itemName.getText().toString(),holder.textView_itemQuantity.getText().toString(), holder.getAdapterPosition(), true), "ADD_NEW_ITEM_FRAGMENT").
+                        replace(R.id.main, new AddItemFragment(holder.textView_itemName.getText().toString(),holder.textView_itemQuantity.getText().toString(), true), "ADD_NEW_ITEM_FRAGMENT").
                         commit();
             }
         });
@@ -153,10 +136,7 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
     @Override
     public int getItemCount() {
         return itemsList.size();
-//        return 0;
     }
-
-
 
     // every row in our RecyclerView will get a reference of this ItemsViewHolder
     public class ItemsViewHolder extends RecyclerView.ViewHolder
@@ -167,7 +147,6 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
         private final TextView  textView_itemQuantity;
         private final Button btnRemoveItem;
         private final Button btnEditItem;
-//        private LinearLayout row_linearLayout;
 
         public ItemsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -184,6 +163,5 @@ public class ShoppingItemsAdapter extends RecyclerView.Adapter<ShoppingItemsAdap
             textView_itemName.setText(name);
             textView_itemQuantity.setText(String.valueOf(quantity));
         }
-
     }
 }
